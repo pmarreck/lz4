@@ -1,0 +1,11 @@
+.{
+    .name = .lz4,
+    .fingerprint = 0x4ae88e9f8daad64e,
+    .version = "1.10.0",
+    .minimum_zig_version = "0.14.0",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "lib",
+    },
+}
