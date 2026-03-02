@@ -22,6 +22,8 @@ pub fn build(b: *std.Build) void {
         .files = &.{
             "lib/lz4.c",
             "lib/lz4hc.c",
+            "lib/lz4frame.c",
+            "lib/xxhash.c",
         },
         .flags = &.{
             "-std=c99",
