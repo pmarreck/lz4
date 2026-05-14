@@ -8,17 +8,13 @@ pub fn build(b: *std.Build) void {
         "Optimization mode",
     ) orelse .ReleaseFast;
 
-    const lib = b.addLibrary(.{
-        .name = "lz4",
-        .linkage = .static,
-        .root_module = b.createModule(.{
-            .target = target,
-            .optimize = optimize,
-            .link_libc = true,
-        }),
+    const lib_mod = b.createModule(.{
+        .target = target,
+        .optimize = optimize,
+        .link_libc = true,
     });
 
-    lib.addCSourceFiles(.{
+    lib_mod.addCSourceFiles(.{
         .files = &.{
             "lib/lz4.c",
             "lib/lz4hc.c",
@@ -33,7 +29,14 @@ pub fn build(b: *std.Build) void {
         },
     });
 
-    lib.addIncludePath(b.path("lib"));
+    lib_mod.addIncludePath(b.path("lib"));
+
+    const lib = b.addLibrary(.{
+        .name = "lz4",
+        .linkage = .static,
+        .root_module = lib_mod,
+    });
+
     lib.installHeadersDirectory(b.path("lib"), "", .{
         .include_extensions = &.{".h"},
         .exclude_extensions = &.{ ".c", ".md", ".in", ".rc.in" },
