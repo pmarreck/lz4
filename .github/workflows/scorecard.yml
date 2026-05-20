@@ -48,7 +48,10 @@ jobs:
           # - Publish results to OpenSSF REST API for easy access by consumers
           # - Allows the repository to include the Scorecard badge.
           # - See https://github.com/ossf/scorecard-action#publishing-results.
-          publish_results: true
+          # Disabled for downstream fork: we don't want to pollute the OSSF
+          # public dataset by attributing scorecard runs to pmarreck/lz4.
+          # The analysis still runs locally and uploads SARIF to GitHub.
+          publish_results: false
 
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
